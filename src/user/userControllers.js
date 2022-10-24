@@ -23,5 +23,26 @@ exports.readUser = async (req, res) => {
 }
 
 // update - patch
+exports.patchUser = async (req, res) =>{
+    try {
+        const userUpdate = await User.updateOne(req.body)
+        if (req.body.name){
+            post.name = req.body.name
+        }
+        res.status(200).send({user: userUpdate})
+    } catch (error){
+        console.log(error)
+        res.status(500).send({error: error.message})
+    }
+}
 
 // delete - delet
+exports.deleteUser = async (req, res) => {
+    try {
+        const userDelete = await User.deleteOne(req.body);
+        res.status(200).send({user: userDelete})
+    } catch (error){
+        console.log(error)
+        res.status(500).send({error: error.message})
+    }
+}
